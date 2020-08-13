@@ -56,3 +56,8 @@ function updatei18nObj(originalObj, translatedObj) {
   }
   return newTranslatedObj;
 }
+
+module.exports = {
+  updateJSON,
+  updateYAML
+};
