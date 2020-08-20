@@ -16,13 +16,13 @@ function updateJSON(originalJSONPath, translatedJSONPath) {
   }
 
   let newJSON = updatei18nObj(
-    flat.flatten(originalJSON),
-    flat.flatten(translJSON)
+    flat.flatten(originalJSON, { delimiter: '/' }),
+    flat.flatten(translJSON, { delimiter: '/' })
   );
 
   fs.writeFileSync(
     translatedJSONPath,
-    JSON.stringify(flat.unflatten(newJSON), undefined, 2)
+    JSON.stringify(flat.unflatten(newJSON, { delimiter: '/' }), undefined, 2)
   );
 }
 
