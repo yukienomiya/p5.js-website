@@ -3,8 +3,8 @@ name: Update i18n files
 on:
   push:
     paths:
-    - 'src/data/reference/**.json'
-    - 'src/data/**.yml'
+    - 'src/data/reference/*.json'
+    - 'src/data/*.yml'
 
 jobs:
   build:
