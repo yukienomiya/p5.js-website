@@ -1,0 +1,28 @@
+name: Generate yaml files
+
+on:
+  push:
+    paths:
+    - 'src/data/*.json'
+
+jobs:
+  build:
+    name: Generate yaml files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v1
+      - name: Install Node.JS 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Generate yaml files
+        run: |
+          npm run grunt generate-yaml-loc-files
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v4
+        with:
+          message: 'Generate yaml files from json versions'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
