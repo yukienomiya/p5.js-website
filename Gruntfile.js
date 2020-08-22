@@ -371,6 +371,17 @@ module.exports = function(grunt) {
     });
   });
 
+  grunt.registerTask('generate-yaml-loc-files', function() {
+    const yamlFromJson = require('./yamlFromJson.js');
+    pkg.languages.forEach(language => {
+      const filePaths = 'src/data/';
+      yamlFromJson(
+        filePaths + language + '.json',
+        filePaths + language + '.yml'
+      );
+    });
+  });
+
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-assemble');
   grunt.loadNpmTasks('grunt-file-append');
