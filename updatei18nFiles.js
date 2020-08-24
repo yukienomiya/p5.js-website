@@ -1,6 +1,6 @@
 const fs = require('fs');
 const flat = require('flat');
-const yaml = require('yaml');
+const yaml = require('js-yaml');
 
 // eslint-disable-next-line no-unused-vars
 function updateJSON(originalJSONPath, translatedJSONPath) {
@@ -15,7 +15,7 @@ function updateJSON(originalJSONPath, translatedJSONPath) {
     translJSON = {};
   }
 
-  let newJSON = updatei18nObj(
+  const newJSON = updatei18nObj(
     flat.flatten(originalJSON, { delimiter: '/' }),
     flat.flatten(translJSON, { delimiter: '/' })
   );
@@ -29,13 +29,19 @@ function updateJSON(originalJSONPath, translatedJSONPath) {
 // eslint-disable-next-line no-unused-vars
 function updateYAML(originalYAMLPath, translatedYAMLPath) {
   const originalYAMLFile = fs.readFileSync(originalYAMLPath, 'utf8');
-  const originalYAML = yaml.parse(originalYAMLFile);
+  const originalYAML = yaml.safeLoad(originalYAMLFile);
   const translYAMLFile = fs.readFileSync(translatedYAMLPath, 'utf8');
-  const translYAML = yaml.parse(translYAMLFile);
+  const translYAML = yaml.safeLoad(translYAMLFile);
 
-  const newYAML = updatei18nObj(originalYAML, translYAML);
+  const newYAML = updatei18nObj(
+    flat.flatten(originalYAML, { delimiter: '/' }),
+    flat.flatten(translYAML, { delimiter: '/' })
+  );
 
-  fs.writeFileSync(translatedYAMLPath, yaml.stringify(newYAML));
+  fs.writeFileSync(
+    translatedYAMLPath,
+    yaml.safeDump(flat.unflatten(newYAML, { delimiter: '/' }))
+  );
 }
 
 // ** using the original English text as default value **
