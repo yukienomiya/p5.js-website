@@ -2,7 +2,6 @@ const fs = require('fs');
 const flat = require('flat');
 const yaml = require('js-yaml');
 
-// eslint-disable-next-line no-unused-vars
 function updateJSON(originalJSONPath, translatedJSONPath) {
   const originalJSONFile = fs.readFileSync(originalJSONPath);
   const originalJSON = JSON.parse(originalJSONFile);
@@ -26,7 +25,6 @@ function updateJSON(originalJSONPath, translatedJSONPath) {
   );
 }
 
-// eslint-disable-next-line no-unused-vars
 function updateYAML(originalYAMLPath, translatedYAMLPath) {
   const originalYAMLFile = fs.readFileSync(originalYAMLPath, 'utf8');
   const originalYAML = yaml.safeLoad(originalYAMLFile);
